@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="t"><title id="t">Illustration of the Administrative Block</title>
+<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dbe9e2"/><stop offset="1" stop-color="#f4f8f6"/></linearGradient></defs>
+<rect width="1200" height="600" fill="url(#sky)"/>
+<rect y="480" width="1200" height="120" fill="#86b0a2"/><rect y="520" width="1200" height="14" fill="#cfe0d8"/>
+<rect x="190" y="170" width="820" height="310" fill="#0b3d3e"/>
+<rect x="150" y="150" width="900" height="26" fill="#14575a"/>
+<rect x="540" y="60" width="120" height="100" fill="#14575a"/><polygon points="530,62 600,20 670,62" fill="#0b3d3e"/>
+<circle cx="600" cy="100" r="26" fill="#eef4f1"/><rect x="598" y="82" width="4" height="20" fill="#0b3d3e"/><rect x="598" y="98" width="16" height="4" fill="#0b3d3e"/>
+<g fill="#cfe0d8">
+<rect x="230" y="215" width="70" height="80"/><rect x="330" y="215" width="70" height="80"/><rect x="430" y="215" width="70" height="80"/>
+<rect x="700" y="215" width="70" height="80"/><rect x="800" y="215" width="70" height="80"/><rect x="900" y="215" width="70" height="80"/>
+<rect x="230" y="335" width="70" height="80"/><rect x="330" y="335" width="70" height="80"/><rect x="430" y="335" width="70" height="80"/>
+<rect x="700" y="335" width="70" height="80"/><rect x="800" y="335" width="70" height="80"/><rect x="900" y="335" width="70" height="80"/></g>
+<rect x="540" y="330" width="120" height="150" fill="#7fa99b"/><rect x="597" y="330" width="6" height="150" fill="#0b3d3e"/>
+<rect x="500" y="480" width="200" height="14" fill="#cfe0d8"/><rect x="480" y="494" width="240" height="14" fill="#b8d0c5"/>
+<g><rect x="1085" y="30" width="6" height="450" fill="#4b6b66"/><polygon points="1091,36 1160,56 1091,76" fill="#7fa99b"/></g>
+</svg>

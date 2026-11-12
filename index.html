@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in | CampusNex</title>
+  <meta name="description" content="CampusNex is an interactive campus information and student utility portal built for the CSD 3105 Internet and Web Programming Laboratory.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="login">
+  <a class="skip-link" href="#login-form">Skip to sign in</a>
+  <div class="login-shell">
+    <section class="login-brand" aria-labelledby="brand-title">
+      <p class="eyebrow">CSD 3105 &middot; Internet and Web Programming Laboratory</p>
+      <h1 id="brand-title">CampusNex</h1>
+      <p class="tagline">Interactive Campus Information and Student Utility Portal</p>
+      <ul class="brand-list">
+        <li>Campus directory and interactive map</li>
+        <li>Network-synchronised clock</li>
+        <li>Java Servlet request, response and hit counter demonstrations</li>
+        <li>Static to dynamic web page examples</li>
+      </ul>
+    </section>
+
+    <div class="login-panel">
+      <main class="login-card">
+        <h2 id="login-title">Student sign in</h2>
+        <p class="muted">Enter your details to open your personal dashboard.</p>
+
+        <div class="notice" role="note">
+          <strong>Demo authentication.</strong> This lab project has no user database. Your details are
+          checked for format in the browser and kept only in this tab&rsquo;s session storage. Nothing is sent to a server
+          and the password is never verified.
+        </div>
+
+        <div id="resumeBanner" class="notice" hidden>
+          You are already signed in as <strong id="resumeName"></strong>.
+          <a href="dashboard.html">Continue to dashboard</a>
+        </div>
+
+        <div id="formError" class="notice error form-error" role="alert"></div>
+
+        <form id="login-form" novalidate aria-labelledby="login-title">
+          <div class="field">
+            <label for="studentName">Full name</label>
+            <input id="studentName" name="studentName" type="text" autocomplete="name" maxlength="60" required aria-describedby="studentName-error">
+            <p class="field-error" id="studentName-error"></p>
+          </div>
+          <div class="field">
+            <label for="rrn">Registration number (RRN)</label>
+            <input id="rrn" name="rrn" type="text" inputmode="numeric" maxlength="12" autocomplete="off" required aria-describedby="rrn-hint rrn-error">
+            <p class="field-hint" id="rrn-hint">12 digits, for example 240071601104</p>
+            <p class="field-error" id="rrn-error"></p>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="className">Class</label>
+              <input id="className" name="className" type="text" maxlength="20" required aria-describedby="className-error">
+              <p class="field-error" id="className-error"></p>
+            </div>
+            <div class="field">
+              <label for="year">Year</label>
+              <select id="year" name="year" required aria-describedby="year-error">
+                <option value="">Select</option>
+                <option>1st Year</option>
+                <option>2nd Year</option>
+                <option>3rd Year</option>
+                <option>4th Year</option>
+              </select>
+              <p class="field-error" id="year-error"></p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <div class="input-group">
+              <input id="password" name="password" type="password" autocomplete="current-password" minlength="6" required aria-describedby="password-hint password-error">
+              <button type="button" class="btn btn-ghost btn-sm" id="togglePassword" aria-controls="password" aria-pressed="false">Show</button>
+            </div>
+            <p class="field-hint" id="password-hint">At least 6 characters (demo only)</p>
+            <p class="field-error" id="password-error"></p>
+          </div>
+          <button type="submit" class="btn btn-block">Sign in</button>
+          <p class="divider">or</p>
+          <button type="button" class="btn btn-secondary btn-block" id="fillDemo">Use demo student details</button>
+        </form>
+      </main>
+    </div>
+  </div>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

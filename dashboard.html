@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard | CampusNex</title>
+  <meta name="description" content="CampusNex student dashboard: network clock, campus map, directory, slideshow and Java Servlet laboratory demonstrations.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="dashboard">
+  <a class="skip-link" href="#overview">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">C</span>CampusNex</a>
+      <button type="button" class="btn btn-secondary btn-sm nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mainNav">Menu</button>
+      <nav class="main-nav" id="mainNav" aria-label="Main">
+        <ul>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#slideshow-section">Gallery</a></li>
+          <li><a href="#map-section">Map</a></li>
+          <li><a href="#directory">Directory</a></li>
+          <li><a href="#labs">Web Labs</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <span class="status-chip" id="backendChip" data-state="unknown" title="Java Servlet backend status">Servlet: checking</span>
+        <button type="button" class="btn btn-secondary btn-sm" id="logoutBtn">Sign out</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= OVERVIEW ================= -->
+    <section class="section" id="overview" aria-labelledby="greeting">
+      <div class="hero">
+        <p class="eyebrow">Student dashboard</p>
+        <h1 id="greeting">Welcome</h1>
+        <p id="greetingSub">Your campus information, tools and laboratory demonstrations in one place.</p>
+      </div>
+
+      <div class="grid grid-3">
+        <article class="card" aria-labelledby="profile-title">
+          <h2 class="card-label" id="profile-title">Student profile</h2>
+          <div class="profile">
+            <div class="avatar" id="avatar" aria-hidden="true">?</div>
+            <h3 id="profName">Student</h3>
+          </div>
+          <dl class="kv">
+            <dt>RRN</dt><dd id="profRrn">-</dd>
+            <dt>Class</dt><dd id="profClass">-</dd>
+            <dt>Year</dt><dd id="profYear">-</dd>
+            <dt>Signed in</dt><dd id="profSigned">-</dd>
+          </dl>
+        </article>
+
+        <article class="card card-dark" aria-labelledby="clock-title">
+          <h2 class="card-label" id="clock-title">Network time (Asia/Kolkata)</h2>
+          <div class="clock-time" id="clockTime" aria-live="off">--:--:--</div>
+          <div class="clock-date" id="clockDate">Synchronising</div>
+          <span class="clock-source" id="clockSource" data-kind="pending">Waiting for first sync</span>
+          <p class="clock-meta" id="clockMeta">&nbsp;</p>
+          <div class="btn-row"><button type="button" class="btn btn-secondary btn-sm" id="syncBtn">Synchronise now</button></div>
+        </article>
+
+        <article class="card" aria-labelledby="visits-title">
+          <h2 class="card-label" id="visits-title">Servlet hit counter</h2>
+          <div class="counter-pair">
+            <div><div class="big-value" id="ovSession">-</div><div class="fine">This session</div></div>
+            <div><div class="big-value" id="ovApp">-</div><div class="fine">All visitors</div></div>
+          </div>
+          <p class="stat-line" id="ovStatus">Contacting servlet</p>
+          <div class="btn-row"><button type="button" class="btn btn-secondary btn-sm" id="ovCount">Count a visit</button></div>
+        </article>
+      </div>
+
+      <div class="grid grid-2" style="margin-top:1.2rem">
+        <article class="card" aria-labelledby="links-title">
+          <h2 class="card-label" id="links-title">Quick links</h2>
+          <ul class="quick-links">
+            <li><a href="#map-section">Open the interactive campus map</a></li>
+            <li><a href="#directory">Search the campus directory</a></li>
+            <li><a href="#labs">Run the servlet demonstrations</a></li>
+            <li><a href="#about">Read about this project</a></li>
+          </ul>
+        </article>
+        <article class="card" aria-labelledby="today-title">
+          <h2 class="card-label" id="today-title">How this page works</h2>
+          <p>The dashboard is plain HTML, CSS and JavaScript. Live values come from three places: your browser (greeting, clock display), the web server&rsquo;s time services, and the Java Servlet backend running on Apache Tomcat.</p>
+          <p class="fine">If the servlet chip in the header says <em>offline</em>, the page still works, but the servlet panels need the Tomcat backend. See the README for setup.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= SLIDESHOW ================= -->
+    <section class="section" id="slideshow-section" aria-labelledby="slideshow-title">
+      <div class="section-head">
+        <p class="eyebrow">Laboratory 6 &middot; Automatic image slideshow</p>
+        <h2 id="slideshow-title">Campus gallery</h2>
+        <p>The slides change automatically every few seconds. Use the arrows or dots to move manually, or pause the show.</p>
+      </div>
+      <div class="slideshow" id="slideshow" role="region" aria-roledescription="carousel" aria-label="Campus image slideshow">
+        <figure class="slide is-active">
+          <img src="assets/campus-library.svg" width="1200" height="600" alt="Illustration of the Central Library with a columned entrance">
+          <figcaption><strong>Central Library</strong><span>Reading halls, reference shelves and quiet study floors.</span></figcaption>
+        </figure>
+        <figure class="slide">
+          <img src="assets/campus-admin.svg" width="1200" height="600" alt="Illustration of the Administrative Block with a clock tower">
+          <figcaption><strong>Administrative Block</strong><span>Admissions, examinations, accounts and student services.</span></figcaption>
+        </figure>
+        <figure class="slide">
+          <img src="assets/campus-lab.svg" width="1200" height="600" alt="Illustration of a computer laboratory with rows of workstations">
+          <figcaption><strong>Computer Laboratory</strong><span>Programming, networking and web technology practicals.</span></figcaption>
+        </figure>
+        <figure class="slide">
+          <img src="assets/campus-cafeteria.svg" width="1200" height="600" alt="Illustration of the campus cafeteria with outdoor seating">
+          <figcaption><strong>Cafeteria</strong><span>Meals, snacks and a place to meet between classes.</span></figcaption>
+        </figure>
+        <button type="button" class="slide-btn prev" id="prevSlide" aria-label="Previous slide">&#8249;</button>
+        <button type="button" class="slide-btn next" id="nextSlide" aria-label="Next slide">&#8250;</button>
+        <div class="slide-controls">
+          <div class="dots" id="dots"></div>
+          <button type="button" class="play-toggle" id="playToggle" aria-pressed="false">Pause</button>
+        </div>
+        <div class="progress" id="progress"></div>
+      </div>
+      <p class="fine" id="slideStatus" aria-live="polite" style="margin-top:.6rem">Slide 1 of 4</p>
+    </section>
+
+    <!-- ================= MAP ================= -->
+    <section class="section" id="map-section" aria-labelledby="map-title">
+      <div class="section-head">
+        <p class="eyebrow">Laboratory 3 &middot; Interactive map</p>
+        <h2 id="map-title">Campus map</h2>
+        <p>Select a pin or a location button to see details. This is a schematic plan, not a surveyed map.</p>
+      </div>
+      <div class="map-layout">
+        <div>
+          <div class="chip-list" id="chips" role="group" aria-label="Choose a location"></div>
+          <div class="map-canvas" id="mapCanvas">
+            <svg viewBox="0 0 800 520" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <rect width="800" height="520" fill="#dfece5"/>
+              <g stroke="#f6faf8" stroke-linecap="round" fill="none">
+                <path d="M60 270H740" stroke-width="24"/>
+                <path d="M400 185V500" stroke-width="24"/>
+                <path d="M190 205V270M190 270V315M610 205V270M610 270V315" stroke-width="14"/>
+                <path d="M110 270V425M680 270V420" stroke-width="12"/>
+              </g>
+              <circle cx="400" cy="270" r="40" fill="#b8d0c5"/>
+              <circle cx="400" cy="270" r="18" fill="#7fa99b"/>
+              <g fill="#14575a">
+                <rect x="330" y="115" width="140" height="70" rx="4"/>
+                <rect x="130" y="130" width="120" height="80" rx="4"/>
+                <rect x="550" y="130" width="120" height="80" rx="4"/>
+                <rect x="135" y="315" width="110" height="80" rx="4"/>
+                <rect x="550" y="315" width="120" height="70" rx="4"/>
+                <rect x="65" y="425" width="90" height="60" rx="4"/>
+              </g>
+              <ellipse cx="680" cy="455" rx="85" ry="38" fill="#86b0a2" stroke="#f6faf8" stroke-width="4"/>
+              <rect x="360" y="488" width="80" height="22" rx="3" fill="#0b3d3e"/>
+              <g fill="#7fa99b"><circle cx="40" cy="120" r="18"/><circle cx="760" cy="110" r="22"/><circle cx="60" cy="350" r="16"/><circle cx="760" cy="350" r="18"/><circle cx="300" cy="400" r="16"/><circle cx="500" cy="400" r="16"/></g>
+            </svg>
+            <button type="button" class="map-pin" data-loc="gate" style="--x:50%;--y:93%" aria-pressed="false"><span class="pin-dot"></span><span class="pin-label">Main Gate</span></button>
+            <button type="button" class="map-pin" data-loc="admin" style="--x:50%;--y:26%" aria-pressed="false"><span class="pin-dot"></span><span class="pin-label">Admin Block</span></button>
+            <button type="button" class="map-pin" data-loc="library" style="--x:23.75%;--y:30%" aria-pressed="false"><span class="pin-dot"></span><span class="pin-label">Library</span></button>
+            <button type="button" class="map-pin" data-loc="lab" style="--x:76.25%;--y:30%" aria-pressed="false"><span class="pin-dot"></span><span class="pin-label">Computer Lab</span></button>
+            <button type="button" class="map-pin" data-loc="auditorium" style="--x:23.75%;--y:65%" aria-pressed="false"><span class="pin-dot"></span><span class="pin-label">Auditorium</span></button>
+            <button type="button" class="map-pin" data-loc="cafeteria" style="--x:76.25%;--y:64%" aria-pressed="false"><span class="pin-dot"></span><span class="pin-label">Cafeteria</span></button>
+            <button type="button" class="map-pin" data-loc="sports" style="--x:85%;--y:84%" aria-pressed="false"><span class="pin-dot"></span><span class="pin-label">Sports Complex</span></button>
+            <button type="button" class="map-pin" data-loc="health" style="--x:13.75%;--y:84%" aria-pressed="false"><span class="pin-dot"></span><span class="pin-label">Health Centre</span></button>
+          </div>
+        </div>
+        <aside class="card info-panel" aria-labelledby="infoName" aria-live="polite">
+          <span class="tag" id="infoTag">Select a location</span>
+          <h3 id="infoName">Nothing selected</h3>
+          <p id="infoDesc">Choose a pin on the map to read about that place.</p>
+          <dl class="kv">
+            <dt>Block</dt><dd id="infoBlock">-</dd>
+            <dt>Floor</dt><dd id="infoFloor">-</dd>
+            <dt>Hours</dt><dd id="infoHours">-</dd>
+            <dt>Phone ext.</dt><dd id="infoExt">-</dd>
+          </dl>
+          <div class="btn-row"><button type="button" class="btn btn-secondary btn-sm" id="infoToDirectory" disabled>Show in directory</button></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ================= DIRECTORY ================= -->
+    <section class="section" id="directory" aria-labelledby="directory-title">
+      <div class="section-head">
+        <p class="eyebrow">Laboratory 1 &middot; HTML table tags</p>
+        <h2 id="directory-title">Campus directory</h2>
+        <p>A semantic HTML table with a caption, header, body and footer. The search box and category filter hide rows with JavaScript.</p>
+      </div>
+      <div class="toolbar">
+        <div class="field">
+          <label for="dirSearch">Search</label>
+          <input id="dirSearch" type="search" placeholder="Name, block or hours">
+        </div>
+        <div class="field">
+          <label for="dirCategory">Category</label>
+          <select id="dirCategory">
+            <option value="">All categories</option>
+            <option>Academic</option>
+            <option>Administration</option>
+            <option>Facilities</option>
+            <option>Food</option>
+            <option>Health</option>
+            <option>Recreation</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-secondary" id="dirClear">Clear filters</button>
+      </div>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Campus directory table">
+        <table id="dirTable">
+          <caption>Campus locations and contacts (sample data)</caption>
+          <thead>
+            <tr>
+              <th scope="col">Location</th>
+              <th scope="col">Category</th>
+              <th scope="col">Block</th>
+              <th scope="col">Floor</th>
+              <th scope="col">Opening hours</th>
+              <th scope="col">Ext.</th>
+              <th scope="col"><span class="sr-only">Map</span></th>
+            </tr>
+          </thead>
+          <tbody id="dirBody">
+            <tr data-loc="gate" data-category="Facilities" data-desc="The main entrance. Visitor registration, security desk and campus transport pick-up are here.">
+              <th scope="row">Main Gate</th><td><span class="pill">Facilities</span></td><td>Entrance</td><td>Ground</td><td>24 hours</td><td>100</td>
+              <td><button type="button" class="btn btn-ghost btn-sm" data-show-map="gate">View on map</button></td>
+            </tr>
+            <tr data-loc="admin" data-category="Administration" data-desc="Admissions, examination cell, accounts and student services. Bring your identity card.">
+              <th scope="row">Administrative Block</th><td><span class="pill">Administration</span></td><td>A</td><td>Ground to 2</td><td>09:00 to 17:00, Mon to Sat</td><td>110</td>
+              <td><button type="button" class="btn btn-ghost btn-sm" data-show-map="admin">View on map</button></td>
+            </tr>
+            <tr data-loc="library" data-category="Academic" data-desc="Reading halls, reference collection, digital resources and group study rooms.">
+              <th scope="row">Central Library</th><td><span class="pill">Academic</span></td><td>B</td><td>Ground to 3</td><td>08:30 to 20:00, Mon to Sat</td><td>120</td>
+              <td><button type="button" class="btn btn-ghost btn-sm" data-show-map="library">View on map</button></td>
+            </tr>
+            <tr data-loc="lab" data-category="Academic" data-desc="Networked workstations for programming, web technology and database practicals.">
+              <th scope="row">Computer Laboratory</th><td><span class="pill">Academic</span></td><td>C</td><td>First</td><td>09:00 to 17:00, Mon to Fri</td><td>130</td>
+              <td><button type="button" class="btn btn-ghost btn-sm" data-show-map="lab">View on map</button></td>
+            </tr>
+            <tr data-loc="auditorium" data-category="Facilities" data-desc="Seminars, guest lectures and cultural events. Seating for large gatherings.">
+              <th scope="row">Auditorium</th><td><span class="pill">Facilities</span></td><td>D</td><td>Ground</td><td>As scheduled</td><td>140</td>
+              <td><button type="button" class="btn btn-ghost btn-sm" data-show-map="auditorium">View on map</button></td>
+            </tr>
+            <tr data-loc="cafeteria" data-category="Food" data-desc="Breakfast, lunch, snacks and beverages with indoor and outdoor seating.">
+              <th scope="row">Cafeteria</th><td><span class="pill">Food</span></td><td>E</td><td>Ground</td><td>08:00 to 19:00</td><td>150</td>
+              <td><button type="button" class="btn btn-ghost btn-sm" data-show-map="cafeteria">View on map</button></td>
+            </tr>
+            <tr data-loc="sports" data-category="Recreation" data-desc="Playing field, courts and indoor games for students and clubs.">
+              <th scope="row">Sports Complex</th><td><span class="pill">Recreation</span></td><td>Grounds</td><td>Ground</td><td>06:00 to 18:30</td><td>160</td>
+              <td><button type="button" class="btn btn-ghost btn-sm" data-show-map="sports">View on map</button></td>
+            </tr>
+            <tr data-loc="health" data-category="Health" data-desc="First aid, basic consultation and referral to nearby hospitals.">
+              <th scope="row">Health Centre</th><td><span class="pill">Health</span></td><td>F</td><td>Ground</td><td>09:00 to 16:00, Mon to Sat</td><td>170</td>
+              <td><button type="button" class="btn btn-ghost btn-sm" data-show-map="health">View on map</button></td>
+            </tr>
+            <tr id="dirEmpty" hidden><td colspan="7">No locations match your search.</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="7">Sample data for the laboratory project. Replace with official institutional information before real use.</td></tr>
+          </tfoot>
+        </table>
+      </div>
+      <p class="fine" id="dirCount" aria-live="polite" style="margin-top:.6rem">Showing 8 of 8 locations</p>
+    </section>
+
+    <!-- ================= LABS ================= -->
+    <section class="section" id="labs" aria-labelledby="labs-title">
+      <div class="section-head">
+        <p class="eyebrow">Laboratories 4, 5, 8, 9 and 10</p>
+        <h2 id="labs-title">Web laboratory demonstrations</h2>
+        <p>Every control here performs a real action. Panels that use Java Servlets send genuine HTTP requests to the Tomcat backend and show exactly what comes back.</p>
+      </div>
+
+      <div class="lab-grid">
+        <!-- Servlet request / response -->
+        <article class="card lab-card wide" aria-labelledby="lab-servlet">
+          <p class="lab-no">Laboratory 8</p>
+          <h3 id="lab-servlet">Java Servlet request and response</h3>
+          <p>Send an HTTP request to <code>HelloServlet</code> (<code>/api/hello</code>). The servlet reads the method, parameters and headers, then builds a JSON response.</p>
+          <form id="reqForm" novalidate>
+            <div class="field-row">
+              <div class="field">
+                <label for="reqMethod">HTTP method</label>
+                <select id="reqMethod"><option>GET</option><option>POST</option></select>
+              </div>
+              <div class="field">
+                <label for="reqName">Name parameter</label>
+                <input id="reqName" type="text" maxlength="60">
+              </div>
+            </div>
+            <div class="field">
+              <label for="reqMessage">Message parameter (optional)</label>
+              <textarea id="reqMessage" maxlength="200" placeholder="Anything you type is echoed back by the servlet"></textarea>
+            </div>
+            <button type="submit" class="btn" id="reqSend">Send request to servlet</button>
+          </form>
+          <p class="console-label">Request sent by the browser</p>
+          <pre class="console" id="reqOut">No request sent yet.</pre>
+          <p class="console-label">Response generated by the servlet</p>
+          <pre class="console" id="resOut">No response yet.</pre>
+        </article>
+
+        <!-- Hit counter -->
+        <article class="card lab-card" aria-labelledby="lab-hits">
+          <p class="lab-no">Laboratory 9</p>
+          <h3 id="lab-hits">Servlet hit counter</h3>
+          <div class="counter-pair">
+            <div><div class="big-value" id="labSession">-</div><div class="fine">Session hits</div></div>
+            <div><div class="big-value" id="labApp">-</div><div class="fine">Application hits</div></div>
+          </div>
+          <p class="fine" id="labHitStatus" aria-live="polite">Not requested yet.</p>
+          <div class="btn-row">
+            <button type="button" class="btn btn-sm" id="hitCount">Count a hit</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="hitPeek">Read without counting</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="hitReset">New session</button>
+            <a class="btn btn-secondary btn-sm" id="hitRaw" href="api/hits?format=html" target="_blank" rel="noopener">Open servlet page</a>
+          </div>
+          <div class="explain">
+            <p><strong>Session counter</strong> lives in the <code>HttpSession</code>. Each browser session has its own value, tied to a <code>JSESSIONID</code> cookie, and it restarts when the session expires or you press <em>New session</em>.</p>
+            <p style="margin:0"><strong>Application counter</strong> lives in the <code>ServletContext</code>. All visitors share one value, and it resets only when the web application restarts.</p>
+          </div>
+        </article>
+
+        <!-- NTP clock -->
+        <article class="card lab-card" aria-labelledby="lab-ntp">
+          <p class="lab-no">Laboratory 5</p>
+          <h3 id="lab-ntp">Network time: HTTP versus NTP</h3>
+          <p>Current clock source: <strong id="labClockSource">not synchronised</strong></p>
+          <p class="fine" id="labClockMeta">&nbsp;</p>
+          <div class="btn-row"><button type="button" class="btn btn-sm" id="labSync">Synchronise clock</button></div>
+          <div class="explain">
+            <p style="margin:0">A browser cannot send NTP packets because NTP uses <strong>UDP port 123</strong> and JavaScript has no UDP access. The portal therefore tries, in order: (1) the Java servlet, which performs a genuine NTP query on the server; (2) an HTTP time API; (3) the HTTP <code>Date</code> header of this site. The badge on the dashboard always names the source actually used.</p>
+          </div>
+          <table>
+            <caption class="sr-only">Comparison of NTP and HTTP time</caption>
+            <thead><tr><th scope="col">Method</th><th scope="col">Transport</th><th scope="col">Runs in</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">NTP</th><td>UDP 123</td><td>Servlet or OS</td></tr>
+              <tr><th scope="row">HTTP time API</th><td>HTTPS (TCP)</td><td>Browser</td></tr>
+              <tr><th scope="row">Date header</th><td>HTTP</td><td>Browser</td></tr>
+            </tbody>
+          </table>
+        </article>
+
+        <!-- Static to dynamic -->
+        <article class="card lab-card wide" aria-labelledby="lab-dyn">
+          <p class="lab-no">Laboratory 10</p>
+          <h3 id="lab-dyn">Static page to dynamic page</h3>
+          <p>The box on the left is written directly in the HTML file, so it is identical for every visitor. Use the buttons to replace it first with JavaScript (runs in your browser) and then with a Java Servlet response (generated on the server).</p>
+          <div class="btn-row" style="margin-bottom:.8rem">
+            <button type="button" class="btn btn-sm" id="btnJs">1. Personalise with JavaScript</button>
+            <button type="button" class="btn btn-sm" id="btnServlet">2. Load from Java Servlet</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btnStaticReset">Reset</button>
+          </div>
+          <div class="compare">
+            <div>
+              <p class="source">Static HTML (typed in the file)</p>
+              <p style="margin:0">Welcome to the campus portal. Library hours are 08:30 to 20:00. This text never changes.</p>
+            </div>
+            <div>
+              <p class="source" id="dynSource">Waiting: no dynamic content loaded</p>
+              <div id="dynOut" aria-live="polite"><p class="fine" style="margin:0">Press a button to generate content.</p></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- W3C -->
+        <article class="card lab-card" aria-labelledby="lab-w3c">
+          <p class="lab-no">Laboratory 4</p>
+          <h3 id="lab-w3c">W3C markup validation</h3>
+          <p>Both pages use semantic HTML5 elements: <code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>article</code>, <code>aside</code>, <code>footer</code>, labelled form controls and a real data table.</p>
+          <ol class="steps">
+            <li>Open the official <strong>W3C Markup Validation Service</strong>.</li>
+            <li>For the deployed site use <em>Validate by URI</em>. For local files use <em>Validate by File Upload</em> or <em>Direct Input</em>.</li>
+            <li>Click <em>Check</em> and read the report. Fix every error, then validate again.</li>
+          </ol>
+          <div class="btn-row">
+            <a class="btn btn-sm" href="https://validator.w3.org/#validate_by_input" target="_blank" rel="noopener">Open W3C validator</a>
+            <button type="button" class="btn btn-secondary btn-sm" id="copyHtml">Copy this page&rsquo;s HTML</button>
+          </div>
+          <p class="fine" id="copyStatus" aria-live="polite" style="margin-top:.6rem">Copy the HTML, then paste it into <em>Validate by Direct Input</em>.</p>
+        </article>
+
+        <!-- Backend connection -->
+        <article class="card lab-card" aria-labelledby="lab-api">
+          <p class="lab-no">Setup</p>
+          <h3 id="lab-api">Backend connection</h3>
+          <p>Leave empty when Tomcat serves this page. If the frontend is hosted elsewhere (for example Vercel), enter the Tomcat application URL.</p>
+          <div class="field">
+            <label for="apiBase">Servlet base URL</label>
+            <input id="apiBase" type="url" placeholder="https://your-tomcat-host/campusnex" autocomplete="off">
+          </div>
+          <div class="btn-row">
+            <button type="button" class="btn btn-sm" id="apiSave">Save and test</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="apiReset">Use same origin</button>
+          </div>
+          <p class="fine" id="apiStatus" aria-live="polite" style="margin-top:.6rem">&nbsp;</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="section-head">
+        <p class="eyebrow">About the project</p>
+        <h2 id="about-title">CampusNex</h2>
+        <p>An interactive campus information and student utility portal that combines the experiments of the CSD 3105 Internet and Web Programming Laboratory into one application.</p>
+      </div>
+      <div class="about-grid">
+        <article class="card" aria-labelledby="about-exp">
+          <h3 id="about-exp">Experiment index</h3>
+          <div class="table-wrap" style="box-shadow:none" tabindex="0" role="region" aria-label="Experiment index table">
+            <table>
+              <caption class="sr-only">Laboratory experiments and where they appear in CampusNex</caption>
+              <colgroup><col style="width:3rem"><col><col></colgroup>
+              <thead><tr><th scope="col">No.</th><th scope="col">Experiment</th><th scope="col">Where to find it</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><th scope="row">HTML table tags</th><td>Directory</td></tr>
+                <tr><td>2</td><th scope="row">CSS</th><td>style.css, every page</td></tr>
+                <tr><td>3</td><th scope="row">Interactive map</th><td>Map</td></tr>
+                <tr><td>4</td><th scope="row">W3C validator</th><td>Web Labs</td></tr>
+                <tr><td>5</td><th scope="row">NTP clock</th><td>Overview, Web Labs</td></tr>
+                <tr><td>6</td><th scope="row">Image slideshow</th><td>Gallery</td></tr>
+                <tr><td>7</td><th scope="row">Login page</th><td>index.html</td></tr>
+                <tr><td>8</td><th scope="row">Java Servlet</th><td>Web Labs</td></tr>
+                <tr><td>9</td><th scope="row">Servlet hit counter</th><td>Overview, Web Labs</td></tr>
+                <tr><td>10</td><th scope="row">Static to dynamic</th><td>Web Labs</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+        <div class="grid">
+          <article class="card" aria-labelledby="about-tech">
+            <h3 id="about-tech">Technologies</h3>
+            <ul class="tech-list">
+              <li>HTML5</li><li>CSS3</li><li>Vanilla JavaScript</li><li>Java Servlet 6.0</li><li>Apache Tomcat 10.1</li><li>W3C Validator</li><li>Vercel (static hosting)</li>
+            </ul>
+          </article>
+          <article class="card" aria-labelledby="about-author">
+            <h3 id="about-author">Prepared by</h3>
+            <dl class="kv">
+              <dt>Name</dt><dd>Mohammed Rahil</dd>
+              <dt>RRN</dt><dd>240071601104</dd>
+              <dt>Class</dt><dd>CSE - B, 3rd Year</dd>
+              <dt>Course</dt><dd>CSD 3105 Internet and Web Programming Laboratory</dd>
+            </dl>
+          </article>
+          <article class="card" aria-labelledby="about-limits">
+            <h3 id="about-limits">Honest limitations</h3>
+            <p class="fine" style="margin:0">Sign-in is a demonstration with no real accounts. Directory data is sample data. Browser JavaScript cannot speak NTP; real NTP is done by the servlet.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>CampusNex &middot; CSD 3105 Internet and Web Programming Laboratory</span>
+      <a href="#overview">Back to top</a>
+    </div>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+  <display-name>CampusNex</display-name>
+  <description>CampusNex: Interactive Campus Information and Student Utility Portal (servlet backend)</description>
+
+  <!-- Runs once at start-up: creates the application-wide counters -->
+  <listener>
+    <listener-class>com.campusnex.AppStartListener</listener-class>
+  </listener>
+
+  <!-- CORS: only needed when the frontend is hosted on a different origin (e.g. Vercel).
+       Add your Vercel URL to allowedOrigins, comma separated, no trailing slash. -->
+  <filter>
+    <filter-name>CorsFilter</filter-name>
+    <filter-class>com.campusnex.CorsFilter</filter-class>
+    <init-param>
+      <param-name>allowedOrigins</param-name>
+      <param-value>http://localhost:5500,http://127.0.0.1:5500,http://localhost:3000</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>CorsFilter</filter-name>
+    <url-pattern>/api/*</url-pattern>
+  </filter-mapping>
+
+  <servlet>
+    <servlet-name>HelloServlet</servlet-name>
+    <servlet-class>com.campusnex.HelloServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HelloServlet</servlet-name>
+    <url-pattern>/api/hello</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>HitCounterServlet</servlet-name>
+    <servlet-class>com.campusnex.HitCounterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HitCounterServlet</servlet-name>
+    <url-pattern>/api/hits</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>NoticesServlet</servlet-name>
+    <servlet-class>com.campusnex.NoticesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NoticesServlet</servlet-name>
+    <url-pattern>/api/notices</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>NtpTimeServlet</servlet-name>
+    <servlet-class>com.campusnex.NtpTimeServlet</servlet-class>
+    <init-param>
+      <param-name>ntpHost</param-name>
+      <param-value>pool.ntp.org</param-value>
+    </init-param>
+    <init-param>
+      <param-name>ntpPort</param-name>
+      <param-value>123</param-value>
+    </init-param>
+    <init-param>
+      <param-name>timeoutMillis</param-name>
+      <param-value>2500</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NtpTimeServlet</servlet-name>
+    <url-pattern>/api/ntp</url-pattern>
+  </servlet-mapping>
+
+  <session-config>
+    <session-timeout>30</session-timeout>
+    <cookie-config>
+      <http-only>true</http-only>
+    </cookie-config>
+  </session-config>
+
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+</web-app>
